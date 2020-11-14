@@ -1,0 +1,20 @@
+{
+  "name": "sparkar-screen",
+  "version": "0.3.1",
+  "description": "A tool to accessing to display information in Spark AR",
+  "main": "Screen.js",
+  "author": "Pofu Lu",
+  "keywords": [
+    "sparkar",
+    "spark-ar",
+    "screen",
+    "pofu"
+  ],
+  "files": [
+    "/Screen.js"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT"
+}
