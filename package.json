@@ -1,6 +1,6 @@
 {
   "name": "sparkar-screen",
-  "version": "0.3.1",
+  "version": "0.5.0",
   "description": "A tool to accessing to display information in Spark AR",
   "main": "Screen.js",
   "author": "Pofu Lu",
@@ -16,5 +16,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pofulu/sparkar-screen.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pofulu/sparkar-screen/issues"
+  },
+  "homepage": "https://github.com/pofulu/sparkar-screen#readme",
   "license": "MIT"
 }
