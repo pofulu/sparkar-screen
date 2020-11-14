@@ -4,7 +4,7 @@
 
 **Screen** is a Spark AR script utility for the following purpose:
 
-1. Convert coordinate **World Position**, **Canvas Position**, **Face Position** to screen point.
+1. Convert coordinate **World Position**, **Canvas Position**, **Face Position** to **Focal Plane Position**.
 2. Positioning 3D object (e.g. ![plane](README.assets/plane.png)) by percent `[0-1]`.
 3. Scale 3D object to fit different screen size.
 
@@ -24,7 +24,7 @@
     const Screen = require('./Screen');
     ```
 
-3. You can also [Click Here to Download Sample Projects](https://yehonal.github.io/DownGit/#home?url=https://github.com/pofulu/sparkar-pftween/tree/master/ScreenDemo).
+3. You can also [Click Here to Download Sample Projects (v101)](https://raw.githubusercontent.com/pofulu/sparkar-screen/master/ScreenDemo.arprojpkg).
 
 ### npm
 
@@ -92,7 +92,7 @@ const Scene = require('Scene');
 const Screen = require('./Screen');
 
 (async function () {
-		const scaler = Screen.createScaler(9, 16);
+    const scaler = Screen.createScaler(9, 16);
     const scaleTarget = await Scene.root.findFirst('scaleTarget');
     scaler.autoScaleObject(scaleTarget);
 });
