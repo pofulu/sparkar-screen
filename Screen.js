@@ -186,11 +186,21 @@ export async function focalPlaneToPercent(position) {
 /**
  * Convert canvas position to focal plane position.
  * @param {PointSignal} position 
- * @param {SceneObjectBase} centerRef 
+ * @param {SceneObjectBase=} centerRef 
  */
 export async function canvasToFocalPlane(position, centerRef) {
     const percent = canvasToPercent(position, centerRef);
     return await percentToFocalPlane(percent);
+}
+
+/**
+ * Convert canvas position to worldTransform position.
+ * @param {PointSignal} position 
+ * @param {SceneObjectBase=} centerRef 
+ */
+export async function canvasToWorld(position, centerRef) {
+    const focal = await canvasToFocalPlane(position, centerRef);
+    return mainCamera.then(camera => camera.worldTransform.applyToPoint(focal));
 }
 
 /**

@@ -100,6 +100,18 @@ const Screen = require('./Screen');
 
 
 
+### Coordinate Converting Included
+
+|                                  | World Position | Canvas Position | Focal Plane Position | Percentage Position |
+| -------------------------------- | -------------- | --------------- | -------------------- | ------------------- |
+| **World Position to**            |                | ✔               | ✔                    |                     |
+| **Camera Transform Position to** | ✔              | ✔               | ✔                    |                     |
+| **Canvas Position to**           | ✔              |                 | ✔                    | ✔                   |
+| **Focal Plane Position to**      |                | ✔               |                      | ✔                   |
+| **Percent Position to**          |                | ✔               | ✔                    |                     |
+
+
+
 ## Donations
 
 If this is useful for you, please consider a donation🙏🏼. One-time donations can be made with PayPal.
