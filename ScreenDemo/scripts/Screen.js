@@ -4,7 +4,6 @@ const Units = require('Units');
 const Scene = require('Scene');
 
 const mainCamera = Scene.root.findFirst('Camera');
-const device = Scene.root.findFirst('Device');
 const units = Units.cm(10);
 
 class Scaler {
@@ -17,7 +16,7 @@ class Scaler {
      * @returns {ScalarSignal}
      */
     get baseRatio() {
-        return Reactive.val(this.baseHeight / this.baseWidth);
+        return Reactive.div(this.baseHeight, this.baseWidth);
     }
 
     /**
@@ -194,16 +193,6 @@ export async function canvasToFocalPlane(position, centerRef) {
 }
 
 /**
- * Convert canvas position to worldTransform position.
- * @param {PointSignal} position 
- * @param {SceneObjectBase=} centerRef 
- */
-export async function canvasToWorld(position, centerRef) {
-    const focal = await canvasToFocalPlane(position, centerRef);
-    return mainCamera.then(camera => camera.worldTransform.applyToPoint(focal));
-}
-
-/**
  * @param {PointSignal} position 
  * @param {SceneObjectBase=} centerRef 
  */
@@ -274,23 +263,23 @@ export function cameraTransformToFocalDistance(cameraTransformPosition) {
 }
 
 /**
- * Convert tracker's cameraTransform position to worldTransform position.
- * @param {*} cameraTransformPosition 
- */
-export function cameraTransformToWorld(cameraTransformPosition) {
-    return mainCamera.then(camera => camera.worldTransform.inverse().applyToPoint(cameraTransformPosition));
-}
-
-/**
  * This only used for getting screen position of tracker's cameraTransform.
  * @param {PointSignal} cameraTransformPosition 
  * @returns {Promise<PointSignal>}
  */
 export async function cameraTransformToFocalPlane(cameraTransformPosition) {
-    const devicePosition = await positionToDevicePosition(cameraTransformPosition);
-    const percent = await worldToPixel01(devicePosition);
+    const percent = await worldToPixel01(cameraTransformPosition);
     const [x, y] = await Promise.all([percentToFocalPlaneX(percent.x), percentToFocalPlaneY(percent.y)]);
     return Reactive.pack3(x, y.neg(), 0);
+}
+
+/**
+ * @param {PointSignal} cameraTransformPosition 
+ * @returns {Promise<Point2Dsignal>}
+ */
+export async function cameraTransformToPercent(cameraTransformPosition) {
+    const focalPlane = await cameraTransformToFocalPlane(cameraTransformPosition);
+    return await focalPlaneToPercent(focalPlane);
 }
 
 /**
@@ -300,8 +289,7 @@ export async function cameraTransformToFocalPlane(cameraTransformPosition) {
  * @returns {Promise<PointSignal>}
  */
 export async function cameraTransformToCanvas(cameraTransformPosition, centerRef) {
-    const devicePosition = await positionToDevicePosition(cameraTransformPosition);
-    const percent = await worldToPixel01(devicePosition);
+    const percent = await worldToPixel01(cameraTransformPosition);
 
     if (centerRef && centerRef.width && centerRef.height) {
         return Reactive.pack3(
@@ -324,8 +312,7 @@ export async function cameraTransformToCanvas(cameraTransformPosition, centerRef
  * @returns {Promise<PointSignal>}
  */
 export async function worldToFocalPlane(worldPosition) {
-    const devicePosition = await worldPositionToDevicePosition(worldPosition);
-    const percent = await worldToPixel01(devicePosition);
+    const percent = await worldToPercet(worldPosition);
     const [x, y] = await Promise.all([percentToFocalPlaneX(percent.x), percentToFocalPlaneY(percent.y)]);
     return Reactive.pack3(x, y.neg(), 0);
 }
@@ -337,8 +324,7 @@ export async function worldToFocalPlane(worldPosition) {
  * @returns {Promise<PointSignal>}
  */
 export async function worldToCanvas(worldPosition, centerRef) {
-    const devicePosition = await worldPositionToDevicePosition(worldPosition);
-    const percent = await worldToPixel01(devicePosition);
+    const percent = await worldToPercet(worldPosition);
 
     if (centerRef && centerRef.width && centerRef.height) {
         return Reactive.pack3(
@@ -355,19 +341,23 @@ export async function worldToCanvas(worldPosition, centerRef) {
     }
 }
 
-
-function positionToDevicePosition(position) {
-    return device.then(device => device.worldTransform.applyToPoint(position));
+/**
+ * Convert position of worldTransform to focal position in [0-1] percent.
+ * @param {PointSignal} worldPosition
+ * @returns {Promise<Point2DSignal>}
+ */
+export async function worldToPercet(worldPosition) {
+    const position = await inverseWorldTransform(worldPosition);
+    return await worldToPixel01(position);
 }
 
-function worldPositionToDevicePosition(worldPosition) {
-    return Promise.all([mainCamera, device]).then(async results => {
-        const camera = results[0];
-        const device = results[1];
-
-        const transform = camera.worldTransform.inverse().applyToPoint(worldPosition);
-        return device.worldTransform.applyToPoint(transform);
-    });
+/**
+ * Convert world position to camera position
+ * @param {PointSignal} worldPosition 
+ * @returns {Promise<PointSignal>}
+ */
+function inverseWorldTransform(worldPosition) {
+    return mainCamera.then(camera => camera.worldTransform.inverse().applyToPoint(worldPosition));
 }
 
 /**

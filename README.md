@@ -102,13 +102,15 @@ const Screen = require('./Screen');
 
 ### Coordinate Converting Included
 
-|                                  | World Position | Canvas Position | Focal Plane Position | Percentage Position |
-| -------------------------------- | -------------- | --------------- | -------------------- | ------------------- |
-| **World Position to**            |                | ✔               | ✔                    |                     |
-| **Camera Transform Position to** | ✔              | ✔               | ✔                    |                     |
-| **Canvas Position to**           | ✔              |                 | ✔                    | ✔                   |
-| **Focal Plane Position to**      |                | ✔               |                      | ✔                   |
-| **Percent Position to**          |                | ✔               | ✔                    |                     |
+|                             | Canvas Position | Focal Plane Position | Percentage Position |
+| --------------------------- | --------------- | -------------------- | ------------------- |
+| **Canvas Position to**      | **–**           | ✔                    | ✔                   |
+| **Focal Plane Position to** | ✔               | **–**                | ✔                   |
+| **Percent Position to**     | ✔               | ✔                    | **–**               |
+| **Face Position to**        | ✔               | ✔                    | ✔                   |
+| **World Position to**       | ✔               | ✔                    | ✔                   |
+
+
 
 
 

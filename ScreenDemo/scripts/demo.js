@@ -19,6 +19,13 @@ const Screen = require('./Screen');
     eyeL_screen.transform.position = await Screen.cameraTransformToFocalPlane(feature);
     eyeL_canvas.transform.position = await Screen.cameraTransformToCanvas(feature, eyeL_canvas);
 
+    // Add percent label to face feature
+    const eyeL_label = await Scene.root.findFirst('faceFeatureLabel');
+    const percent = await Screen.cameraTransformToPercent(feature);
+    const format = '{0:.2F}';
+    eyeL_label.transform.position = await Screen.cameraTransformToCanvas(feature, eyeL_label);
+    eyeL_label.text = percent.x.format(format).concat(', ').concat(percent.y.format(format));
+
 
     //––––––––––––––––––––––––––– How to positioning with percent –––––––––––––––––––––––––––
 
@@ -29,11 +36,11 @@ const Screen = require('./Screen');
     positioning.transform.x = await Screen.percentToFocalPlaneX(Time.ms.mod(4000).mul(0.00025));
     positioning.transform.y = await Screen.percentToFocalPlaneY(.2);
 
-    const label = await Scene.root.findFirst('label');
-    label.transform.position = await Screen.focalPlaneToCanvas(positioning.transform.position, label);
-    label.text = Screen.canvasToPercentX(label.transform.x, label).format('{0:.2F}')
+    const label1 = await Scene.root.findFirst('positioningLabel');
+    label1.transform.position = await Screen.focalPlaneToCanvas(positioning.transform.position, label1);
+    label1.text = Screen.canvasToPercentX(label1.transform.x, label1).format('{0:.2F}')
         .concat(', ')
-        .concat(Screen.canvasToPercentY(label.transform.y, label).format('{0:.1F}'));
+        .concat(Screen.canvasToPercentY(label1.transform.y, label1).format('{0:.1F}'));
 
 
     //––––––––––––––––––––––––––– How to keep object's scale   –––––––––––––––––––––––––––
