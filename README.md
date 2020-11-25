@@ -63,7 +63,7 @@ const feature = face.cameraTransform.applyToPoint(face.leftEye.center);
     const position = await Screen.cameraTransformToFocalDistance(feature);
     const focalPlanePosition = await Screen.cameraTransformToFocalPlane(feature);
     const canvasPosition = await Screen.cameraTransformToCanvas(feature);
-});
+})();
 ```
 
 
@@ -78,7 +78,7 @@ const Screen = require('./Screen');
     const positioning = await Scene.root.findFirst('positioning');
     positioning.transform.x = await Screen.percentToFocalPlaneX(.1);
     positioning.transform.y = await Screen.percentToFocalPlaneY(.2);
-});
+})();
 ```
 
 
@@ -95,7 +95,7 @@ const Screen = require('./Screen');
     const scaler = Screen.createScaler(9, 16);
     const scaleTarget = await Scene.root.findFirst('scaleTarget');
     scaler.autoScaleObject(scaleTarget);
-});
+})();
 ```
 
 
