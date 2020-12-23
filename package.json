@@ -1,6 +1,6 @@
 {
   "name": "sparkar-screen",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A tool to accessing to display information in Spark AR",
   "main": "Screen.js",
   "author": "Pofu Lu",
