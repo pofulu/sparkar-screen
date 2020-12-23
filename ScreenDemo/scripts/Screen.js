@@ -97,7 +97,7 @@ export async function percentToFocalPlane(percentLocation) {
 
 /**
  * The percentage [0-1] of position X in canvas coordinates. `0` is left, `1` is right.
- * @param {Point2DSignal} location
+ * @param {Point2DSignal} percent
  * @returns {PointSignal}
  */
 export function percentToCanvasX(percent) {
@@ -106,7 +106,7 @@ export function percentToCanvasX(percent) {
 
 /**
  * The percentage [0-1] of position Y in canvas coordinates. `0` is top, `1` is bottom.
- * @param {Point2DSignal} location
+ * @param {Point2DSignal} percent
  * @returns {PointSignal}
  */
 export function percentToCanvasY(percent) {
@@ -275,7 +275,7 @@ export async function cameraTransformToFocalPlane(cameraTransformPosition) {
 
 /**
  * @param {PointSignal} cameraTransformPosition 
- * @returns {Promise<Point2Dsignal>}
+ * @returns {Promise<Point2DSignal>}
  */
 export async function cameraTransformToPercent(cameraTransformPosition) {
     const focalPlane = await cameraTransformToFocalPlane(cameraTransformPosition);
