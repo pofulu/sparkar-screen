@@ -312,7 +312,8 @@ export async function cameraTransformToCanvas(cameraTransformPosition, centerRef
  * @returns {Promise<PointSignal>}
  */
 export async function worldToFocalPlane(worldPosition) {
-    const percent = await worldToPercet(worldPosition);
+    const position = await inverseWorldTransform(worldPosition);
+    const percent = await worldToPixel01(position);
     const [x, y] = await Promise.all([percentToFocalPlaneX(percent.x), percentToFocalPlaneY(percent.y)]);
     return Reactive.pack3(x, y.neg(), 0);
 }
@@ -324,7 +325,8 @@ export async function worldToFocalPlane(worldPosition) {
  * @returns {Promise<PointSignal>}
  */
 export async function worldToCanvas(worldPosition, centerRef) {
-    const percent = await worldToPercet(worldPosition);
+    const position = await inverseWorldTransform(worldPosition);
+    const percent = await worldToPixel01(position);
 
     if (centerRef && centerRef.width && centerRef.height) {
         return Reactive.pack3(
@@ -347,8 +349,8 @@ export async function worldToCanvas(worldPosition, centerRef) {
  * @returns {Promise<Point2DSignal>}
  */
 export async function worldToPercet(worldPosition) {
-    const position = await inverseWorldTransform(worldPosition);
-    return await worldToPixel01(position);
+    const position = await worldToFocalPlane(worldPosition);
+    return await focalPlaneToPercent(position);
 }
 
 /**
