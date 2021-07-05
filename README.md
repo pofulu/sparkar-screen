@@ -12,39 +12,22 @@
 
 ## Install
 
-### Import
+[![NPM](https://nodei.co/npm/sparkar-screen.png?compact=true)](https://nodei.co/npm/sparkar-screen.png?compact=true)
 
-0. [Download Screen.js](https://github.com/pofulu/sparkar-screen/raw/master/Screen.js) (Right click and Save as)
+You can download script and import it into your Spark AR project, or use this with npm.
 
-1. Drag/Drop or import it to Spark AR.
+0. [Download Screen.ts](https://github.com/pofulu/sparkar-screen/releases/latest/download/Screen.ts)
 
-2. Load in the required module.
+1. Drag/Import it into your project. ([Spark AR support TypeScript since v105](https://sparkar.facebook.com/ar-studio/learn/scripting/typescript-support))
 
-    ```javascript
-    const Screen = require('./Screen');
-    ```
+2. Import `Screen` module at the top of your script.
 
-3. You can also [Click Here to Download Sample Projects (v101)](https://raw.githubusercontent.com/pofulu/sparkar-screen/master/ScreenDemo.arprojpkg).
+   ```javascript
+   import * as Screen from './Screen';
+   ```
 
-### npm
 
-0. Add package with `yarn` or `npm`.
-
-    ```shell
-    yarn add sparkar-screen
-    ```
-
-    or
-
-    ```shell
-    npm i sparkar-screen
-    ```
-
-1. Load in the required module.
-
-    ```javascript
-    const Screen = require('sparkar-screen');
-    ```
+3. You can also [Click Here to Download Sample Project (v115.1)](https://github.com/pofulu/sparkar-pftween/releases/latest/download/ScreenDemo.arprojpkg).
 
 
 

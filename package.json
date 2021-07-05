@@ -11,8 +11,10 @@
     "pofu"
   ],
   "files": [
-    "/Screen.js"
+    "Screen.js",
+    "Screen.d.ts"
   ],
+  "types": "Screen.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

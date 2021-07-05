@@ -1,16 +1,16 @@
 
-const Scene = require('Scene');
-const FaceTracking = require('FaceTracking');
-const Time = require('Time');
-const Reactive = require('Reactive');
-const Screen = require('./Screen');
+import Scene from 'Scene';
+import FaceTracking from 'FaceTracking';
+import Time from 'Time';
+import Reactive from 'Reactive';
+import * as Screen from './Screen';
 
 (async function () {
     //––––––––––––––––––––––––––– How to convert tracker's position –––––––––––––––––––––––––––
 
     const eyeL = await Scene.root.findFirst('eyeL');
     const eyeL_screen = await Scene.root.findFirst('eyeL_screen');
-    const eyeL_canvas = await Scene.root.findFirst('eyeL_canvas');
+    const eyeL_canvas = await Scene.root.findFirst('eyeL_canvas') as undefined as PlanarImage;
 
     const face = FaceTracking.face(0);
     const feature = face.cameraTransform.applyToPoint(face.leftEye.center);
@@ -20,7 +20,7 @@ const Screen = require('./Screen');
     eyeL_canvas.transform.position = await Screen.cameraTransformToCanvas(feature, eyeL_canvas);
 
     // Add percent label to face feature
-    const eyeL_label = await Scene.root.findFirst('faceFeatureLabel');
+    const eyeL_label = await Scene.root.findFirst('faceFeatureLabel') as undefined as PlanarText;
     const percent = await Screen.cameraTransformToPercent(feature);
     const format = '{0:.2F}';
     eyeL_label.transform.position = await Screen.cameraTransformToCanvas(feature, eyeL_label);
@@ -36,7 +36,7 @@ const Screen = require('./Screen');
     positioning.transform.x = await Screen.percentToFocalPlaneX(Time.ms.mod(4000).mul(0.00025));
     positioning.transform.y = await Screen.percentToFocalPlaneY(.2);
 
-    const label1 = await Scene.root.findFirst('positioningLabel');
+    const label1 = await Scene.root.findFirst('positioningLabel') as undefined as PlanarText;;
     label1.transform.position = await Screen.focalPlaneToCanvas(positioning.transform.position, label1);
     label1.text = Screen.canvasToPercentX(label1.transform.x, label1).format('{0:.2F}')
         .concat(', ')
