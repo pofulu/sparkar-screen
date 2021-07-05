@@ -12,7 +12,7 @@
 
 ## Install
 
-[![NPM](https://nodei.co/npm/sparkar-screen.png?compact=true)](https://nodei.co/npm/sparkar-screen.png?compact=true)
+[![NPM](https://nodei.co/npm/sparkar-screen.png?compact=true)](https://www.npmjs.com/package/sparkar-screen)
 
 You can download script and import it into your Spark AR project, or use this with npm.
 
@@ -27,7 +27,7 @@ You can download script and import it into your Spark AR project, or use this wi
    ```
 
 
-3. You can also [Click Here to Download Sample Project (v115.1)](https://github.com/pofulu/sparkar-pftween/releases/latest/download/ScreenDemo.arprojpkg).
+3. You can also [Click Here to Download Sample Project (v115.1)](https://github.com/pofulu/sparkar-screen/releases/latest/download/ScreenDemo.arprojpkg).
 
 
 
